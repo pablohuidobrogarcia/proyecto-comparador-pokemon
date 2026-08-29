@@ -1,0 +1,8 @@
+node_modules/
+frontend/dist/
+scraper/scrape-errors.json
+scraper/scrape.pid
+scraper/scrape.log
+scraper/scrape.err
+*.log
+.DS_Store

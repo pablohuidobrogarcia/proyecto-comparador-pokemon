@@ -1,0 +1,15 @@
+{
+  "name": "pokemon-comparator-scraper",
+  "version": "1.0.0",
+  "description": "Scraper offline que genera el dataset de Pokémon a partir de wikidex.net",
+  "private": true,
+  "scripts": {
+    "index": "node index-pokemon.js",
+    "scrape": "node scrape.js",
+    "build:data": "node index-pokemon.js && node scrape.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.0",
+    "cheerio": "^1.0.0"
+  }
+}

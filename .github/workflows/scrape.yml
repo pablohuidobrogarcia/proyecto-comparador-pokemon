@@ -1,0 +1,42 @@
+name: Actualizar dataset de Pokémon
+
+on:
+  schedule:
+    # Se ejecuta el día 1 de cada mes a las 03:00 UTC (puedes ajustar el cron).
+    - cron: '0 3 1 * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install scraper dependencies
+        working-directory: scraper
+        run: npm install
+
+      - name: Run scraper
+        working-directory: scraper
+        run: npm run scrape
+
+      - name: Commit updated dataset
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add frontend/src/data/pokemon-dataset.json
+          if git diff --cached --quiet; then
+            echo "No hubo cambios en el dataset."
+          else
+            git commit -m "chore: actualizar dataset de Pokémon (auto)"
+            git push
+          fi
