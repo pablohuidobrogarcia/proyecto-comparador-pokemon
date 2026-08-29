@@ -59,8 +59,37 @@ Opciones:
   SCRAPE_DELAY=400 npm run scrape
   ```
 
-El progreso se guarda cada 25 Pokémon, por lo que si se interrumpe puedes retomarlo sin
+El progreso se guarda cada 50 páginas, por lo que si se interrumpe puedes retomarlo sin
 perder todo. Los Pokémon que fallen se listan al final y en `scraper/scrape-errors.json`.
+
+### 🎯 Modelo de datos: una entrada por tabla de stats
+
+Las fichas de Wikidex contienen, dentro de la sección **"Características de combate"**
+(`<h2>`), una o varias tablas de estadísticas base (a menudo agrupadas en subsecciones
+`<h3>` por forma o generación: forma base, megaevoluciones, Gigamax, formas regionales,
+Pokémon iniciales con stats distintas, etc.). **El scraper genera una entrada independiente
+en el dataset por cada tabla de stats**, sin filtrar ni deduplicar:
+
+1. Localiza la sección `Características de combate`.
+2. Recorre en orden de documento todas las tablas `table.tabpokemon.caracteristicas`.
+3. El nombre de cada entrada es el encabezado (`<h3>`) más cercano por encima de la tabla;
+   si la tabla cuelga directamente del `<h2>` (sin `<h3>`), usa el título de la página.
+4. `numero` es el número de Pokédex nacional de la página (igual para todas las entradas).
+5. `sprite` es el sprite concreto de la subsección si existe, o el sprite principal de la
+   página en caso contrario.
+6. `types` se toma de la **infobox principal** superior de la página (la misma para todas
+   las entradas de esa página). Por tanto, para formas alternativas (megasevoluciones,
+   formas regionales) el tipo puede no coincidir con el real de esa forma; queda como
+   mejora futura corregirlo por entrada.
+7. El campo opcional `pokemonBase` guarda el nombre de la forma base de la página
+   (sin prefijos/sufijos de forma alternativa), útil para agrupar variantes en el frontend.
+
+> 📌 Resultado: páginas con varias formas producen varias entradas que pueden compartir el
+> **mismo nombre** (p. ej. Charizard, Mega-Charizard X y Mega-Charizard Y; o Pikachu en
+> varias generaciones). El frontend deberá permitir elegir entre entradas homónimas.
+
+**Tipo(s):** se extraen de la infobox principal de la página como array de 1 o 2 elementos
+(ej. `["Fuego","Volador"]`).
 
 > ⚠️ **Aviso:** el scraper depende de la estructura HTML actual de
 > [wikidex.net](https://www.wikidex.net). Si la wiki cambia su maquetación, habrá que
