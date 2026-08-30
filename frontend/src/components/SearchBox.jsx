@@ -1,5 +1,6 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
 import Fuse from 'fuse.js';
+import PokemonSprite from './PokemonSprite';
 
 const fuseOptions = {
   keys: ['name'],
@@ -56,10 +57,9 @@ export default function SearchBox({ label, pokemonList, exclude, onSelect, disab
       {open && suggestions.length > 0 && (
         <ul className="suggestions">
           {suggestions.map((p) => (
-            <li key={p.slug} onClick={() => pick(p)}>
-              {p.sprite && <img src={p.sprite} alt="" />}
+            <li key={p.id} onClick={() => pick(p)}>
+              {p.sprite && <PokemonSprite pokemon={p} alt="" />}
               <span>{p.name}</span>
-              {p.id && <small>#{String(p.id).padStart(3, '0')}</small>}
             </li>
           ))}
         </ul>

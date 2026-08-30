@@ -1,3 +1,5 @@
+import PokemonSprite from './PokemonSprite';
+
 const TYPE_COLORS = {
   Planta: '#78C850',
   Veneno: '#A040A0',
@@ -31,10 +33,7 @@ export default function PokemonCard({ pokemon, color, onRemove }) {
       <button className="remove-btn" onClick={onRemove} title="Quitar">
         ×
       </button>
-      {pokemon.sprite && (
-        <img className="card-sprite" src={pokemon.sprite} alt={pokemon.name} loading="lazy" />
-      )}
-      <div className="card-number">#{String(pokemon.id ?? '???').padStart(3, '0')}</div>
+      {pokemon.sprite && <PokemonSprite pokemon={pokemon} className="card-sprite" />}
       <h3 className="card-name" style={{ color }}>
         {pokemon.name}
       </h3>
