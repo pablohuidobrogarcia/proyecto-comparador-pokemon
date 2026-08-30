@@ -196,6 +196,79 @@ body {
   color: var(--muted);
 }
 
+/* Selector de habilidad */
+.ability-picker {
+  position: relative;
+  margin-top: 12px;
+  text-align: left;
+}
+
+.ability-picker .ability-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.ability-picker .ability-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.ability-picker .ability-field label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.ability-picker .ability-field select {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  background: var(--card-bg);
+  color: var(--text);
+}
+
+.ability-picker .ability-info {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--muted);
+  padding: 6px 4px;
+}
+
+.ability-picker .ability-info:hover {
+  color: var(--accent);
+}
+
+.ability-picker .ability-type-field {
+  margin-top: 6px;
+}
+
+.ability-picker .ability-popover {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 30;
+  margin-top: 6px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  padding: 10px 12px;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--text);
+  width: max-content;
+  max-width: min(260px, 76vw);
+}
+
 /* Secciones */
 .chart-section,
 .table-section {

@@ -1,7 +1,8 @@
 import PokemonSprite from './PokemonSprite';
+import AbilityPicker from './AbilityPicker';
 import { typeColor } from '../utils/typeColors';
 
-export default function PokemonCard({ pokemon, color, onRemove }) {
+export default function PokemonCard({ pokemon, color, onRemove, selection, onSelectionChange }) {
   if (!pokemon) return null;
   return (
     <div className="pokemon-card" style={{ borderColor: color }}>
@@ -24,6 +25,7 @@ export default function PokemonCard({ pokemon, color, onRemove }) {
         ))}
       </div>
       <div className="card-total">Total: {pokemon.total}</div>
+      <AbilityPicker selection={selection} onChange={onSelectionChange} />
     </div>
   );
 }

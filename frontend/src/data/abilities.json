@@ -1,0 +1,186 @@
+[
+  {
+    "name": "Ninguna",
+    "description": "No modifica la tabla de tipos ni el daño recibido. Se utilizan únicamente las resistencias, debilidades e inmunidades normales de los tipos del Pokémon.",
+    "modifiers": {}
+  },
+  {
+    "name": "Absorbe Agua",
+    "description": "Convierte los movimientos Agua en inmunidad (×0). Al recibir un movimiento Agua, recupera 25% de sus PS máximos.",
+    "modifiers": {
+      "immune": ["Agua"]
+    }
+  },
+  {
+    "name": "Absorbe Electricidad",
+    "description": "Convierte los movimientos Eléctricos en inmunidad (×0). Al recibir un movimiento Eléctrico, recupera 25% de sus PS máximos.",
+    "modifiers": {
+      "immune": ["Eléctrico"]
+    }
+  },
+  {
+    "name": "Absorbe Fuego",
+    "description": "Convierte los movimientos Fuego en inmunidad (×0). Al recibir un movimiento Fuego, aumenta 1 nivel su Ataque.",
+    "modifiers": {
+      "immune": ["Fuego"]
+    }
+  },
+  {
+    "name": "Armadura Prisma",
+    "description": "Reduce en 25% el daño de movimientos supereficaces. Una efectividad ×2 pasa a ×1,5 y ×4 pasa a ×3. No crea una resistencia real.",
+    "modifiers": {
+      "reduceSuperEffective": 0.75
+    }
+  },
+  {
+    "name": "Colector",
+    "description": "Convierte los movimientos Agua en inmunidad (×0). Al recibir Agua, aumenta 1 nivel el Ataque Especial. En combates múltiples también puede atraer movimientos Agua dirigidos a otros Pokémon.",
+    "modifiers": {
+      "immune": ["Agua"]
+    }
+  },
+  {
+    "name": "Cuerpo Horneado",
+    "description": "Convierte los movimientos Fuego en inmunidad (×0). Al recibir Fuego, aumenta 2 niveles la Defensa.",
+    "modifiers": {
+      "immune": ["Fuego"]
+    }
+  },
+  {
+    "name": "Electromotor",
+    "description": "Convierte los movimientos Eléctricos en inmunidad (×0). Al recibir Eléctrico, aumenta 1 nivel la Velocidad.",
+    "modifiers": {
+      "immune": ["Eléctrico"]
+    }
+  },
+  {
+    "name": "Filtro",
+    "description": "Reduce en 25% el daño de movimientos supereficaces. ×2 → ×1,5 y ×4 → ×3. No cambia la relación de tipos.",
+    "modifiers": {
+      "reduceSuperEffective": 0.75
+    }
+  },
+  {
+    "name": "Geofagia",
+    "description": "Convierte los movimientos Tierra en inmunidad (×0). Al recibir Tierra, aumenta 1 nivel la Defensa.",
+    "modifiers": {
+      "immune": ["Tierra"]
+    }
+  },
+  {
+    "name": "Herbívoro",
+    "description": "Convierte los movimientos Planta en inmunidad (×0). Al recibir Planta, aumenta 1 nivel el Ataque.",
+    "modifiers": {
+      "immune": ["Planta"]
+    }
+  },
+  {
+    "name": "Ignífugo",
+    "description": "Reduce a la mitad el daño de movimientos Fuego (×0,5). Además, el Pokémon no recibe daño de la quemadura.",
+    "modifiers": {
+      "multiply": [{ "type": "Fuego", "factor": 0.5 }]
+    }
+  },
+  {
+    "name": "Levitación",
+    "description": "Convierte los movimientos Tierra en inmunidad (×0) mientras la habilidad esté activa.",
+    "modifiers": {
+      "immune": ["Tierra"]
+    }
+  },
+  {
+    "name": "Mar del Albor",
+    "description": "Mientras está activa, crea Lluvia Intensa, que hace que los movimientos Fuego no tengan efecto (×0). Es un efecto temporal del clima, no una inmunidad permanente propia del Pokémon.",
+    "modifiers": {
+      "immune": ["Fuego"]
+    }
+  },
+  {
+    "name": "Pararrayos",
+    "description": "Convierte los movimientos Eléctricos en inmunidad (×0). Al recibir Eléctrico, aumenta 1 nivel el Ataque Especial. También atrae movimientos Eléctricos dirigidos a otros Pokémon en combates múltiples.",
+    "modifiers": {
+      "immune": ["Eléctrico"]
+    }
+  },
+  {
+    "name": "Peluche",
+    "description": "Aumenta al doble (×2) el daño recibido de movimientos Fuego.",
+    "modifiers": {
+      "multiply": [{ "type": "Fuego", "factor": 2 }]
+    }
+  },
+  {
+    "name": "Piel Seca",
+    "description": "Convierte Agua en inmunidad (×0) y recupera 25% de los PS máximos al recibir Agua. Los movimientos Fuego hacen ×1,25 de daño. La lluvia recupera PS y el sol intenso causa daño.",
+    "modifiers": {
+      "immune": ["Agua"],
+      "multiply": [{ "type": "Fuego", "factor": 1.25 }]
+    }
+  },
+  {
+    "name": "Pompa",
+    "description": "Reduce a la mitad el daño de movimientos Fuego (×0,5). Además, evita que el Pokémon pueda sufrir quemadura.",
+    "modifiers": {
+      "multiply": [{ "type": "Fuego", "factor": 0.5 }]
+    }
+  },
+  {
+    "name": "Ráfaga Delta",
+    "description": "Crea Vientos Fuertes. Mientras estén activos, las debilidades causadas por el tipo Volador se neutralizan. Por ejemplo, Volador frente a Eléctrico/Hielo/Roca pasa de ×2 a ×1; Dragón/Volador frente a Hielo pasa de ×4 a ×2. No elimina debilidades que procedan del otro tipo.",
+    "modifiers": {
+      "neutralizeFlyingComponent": true
+    }
+  },
+  {
+    "name": "Roca Sólida",
+    "description": "Reduce en 25% el daño de movimientos supereficaces. ×2 → ×1,5 y ×4 → ×3.",
+    "modifiers": {
+      "reduceSuperEffective": 0.75
+    }
+  },
+  {
+    "name": "Sal Purificadora",
+    "description": "Reduce a la mitad el daño recibido de movimientos Fantasma (×0,5). Además, protege al Pokémon frente a alteraciones de estado.",
+    "modifiers": {
+      "multiply": [{ "type": "Fantasma", "factor": 0.5 }]
+    }
+  },
+  {
+    "name": "Sebo",
+    "description": "Reduce a la mitad el daño recibido de movimientos Fuego e Hielo (×0,5).",
+    "modifiers": {
+      "multiply": [
+        { "type": "Fuego", "factor": 0.5 },
+        { "type": "Hielo", "factor": 0.5 }
+      ]
+    }
+  },
+  {
+    "name": "Teracaparazón",
+    "description": "Mientras el Pokémon tenga PS completos, los movimientos dañinos que normalmente le afectarían pasan a considerarse no muy eficaces (×0,5). Las inmunidades ×0 siguen siendo ×0.",
+    "modifiers": {
+      "capWeaknessToHalf": true
+    }
+  },
+  {
+    "name": "Tierra del Ocaso",
+    "description": "Activa Sol Abrasador, que hace que los movimientos Agua no tengan efecto (×0) mientras esté activo. Es un efecto temporal del clima.",
+    "modifiers": {
+      "immune": ["Agua"]
+    }
+  },
+  {
+    "name": "Impulso Anguila",
+    "description": "Convierte los movimientos Eléctricos en inmunidad (×0). No proporciona ningún aumento de estadísticas ni recuperación de PS.",
+    "modifiers": {
+      "immune": ["Eléctrico"]
+    }
+  },
+  {
+    "name": "Multitipo",
+    "description": "El tipo del Pokémon cambia según la Tabla que lleve equipada. Por tanto, puede cambiar completamente sus debilidades, resistencias e inmunidades.",
+    "modifiers": {
+      "overrideType": true
+    }
+  }
+]

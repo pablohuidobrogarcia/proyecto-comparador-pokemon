@@ -1,6 +1,9 @@
 import PokemonSprite from './PokemonSprite';
-import { checkTypeEffectiveness } from '../utils/typeEffectiveness';
+import { effectiveMultiplier } from '../utils/typeEffectiveness';
 import { typeColor } from '../utils/typeColors';
+import abilities from '../data/abilities.json';
+
+const ABILITY_BY_NAME = Object.fromEntries(abilities.map((a) => [a.name, a]));
 
 const TYPE_ORDER = [
   'Normal',
@@ -23,13 +26,18 @@ const TYPE_ORDER = [
   'Hada',
 ];
 
+function fmt(n) {
+  if (Number.isInteger(n)) return String(n);
+  return n.toFixed(3).replace(/0+$/, '').replace(/\.$/, '');
+}
+
 function multLabel(mult) {
   if (mult === 0) return { text: '0', cls: 'cov-zero' };
   if (mult === 0.25) return { text: '¼', cls: 'cov-resist' };
   if (mult === 0.5) return { text: '½', cls: 'cov-resist' };
-  if (mult === 2) return { text: '2×', cls: 'cov-weak' };
-  if (mult === 4) return { text: '4×', cls: 'cov-weak' };
-  return { text: '', cls: '' };
+  if (mult === 1) return { text: '', cls: '' };
+  if (mult > 1) return { text: `${fmt(mult)}×`, cls: 'cov-weak' };
+  return { text: fmt(mult), cls: 'cov-resist' };
 }
 
 function totalStyle(show, count, isWeak) {
@@ -40,13 +48,15 @@ function totalStyle(show, count, isWeak) {
     : { backgroundColor: `rgba(16, 128, 70, ${alpha})`, color: '#fff' };
 }
 
-export default function DefenseCoverageTable({ pokemon, colors }) {
+export default function DefenseCoverageTable({ pokemon, colors, selections }) {
   if (!pokemon.length) return null;
 
   const rows = TYPE_ORDER.map((attacker) => {
-    const mults = pokemon.map((p) =>
-      checkTypeEffectiveness(attacker, p.types ?? [])
-    );
+    const mults = pokemon.map((p) => {
+      const sel = selections?.[p.id] || {};
+      const ability = ABILITY_BY_NAME[sel.ability || 'Ninguna'];
+      return effectiveMultiplier(attacker, p, ability, sel.multiType || null);
+    });
     const weakCount = mults.filter((m) => m > 1).length;
     const resistCount = mults.filter((m) => m < 1).length;
     return { attacker, mults, weakCount, resistCount };

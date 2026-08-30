@@ -11,6 +11,7 @@ const COLORS = ['#e63946', '#1d6fb8', '#2a9d8f', '#e9a000', '#8e44ad', '#d81b60'
 
 export default function App() {
   const [selected, setSelected] = useState([]);
+  const [selections, setSelections] = useState({});
 
   const sorted = [...selected].sort((a, b) => String(a.name).localeCompare(String(b.name)));
   const exclude = selected.map((p) => p.name);
@@ -23,6 +24,10 @@ export default function App() {
 
   function removePokemon(id) {
     setSelected(selected.filter((s) => s.id !== id));
+  }
+
+  function updateSelection(id, patch) {
+    setSelections((prev) => ({ ...prev, [id]: { ...prev[id], ...patch } }));
   }
 
   return (
@@ -63,6 +68,8 @@ export default function App() {
                 pokemon={p}
                 color={COLORS[i % COLORS.length]}
                 onRemove={() => removePokemon(p.id)}
+                selection={selections[p.id]}
+                onSelectionChange={(patch) => updateSelection(p.id, patch)}
               />
             ))}
           </section>
@@ -79,7 +86,7 @@ export default function App() {
             </div>
           </section>
 
-          <DefenseCoverageTable pokemon={sorted} colors={COLORS} />
+          <DefenseCoverageTable pokemon={sorted} colors={COLORS} selections={selections} />
         </>
       )}
 
