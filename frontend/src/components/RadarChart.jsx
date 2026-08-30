@@ -38,7 +38,7 @@ export default function StatsRadarChart({ pokemon, colors }) {
           <PolarRadiusAxis angle={90} domain={[0, 'dataMax']} />
           {pokemon.map((p, i) => (
             <Radar
-              key={p.slug}
+              key={p.id}
               name={p.name}
               dataKey={p.name}
               stroke={colors[i % colors.length]}
@@ -46,7 +46,7 @@ export default function StatsRadarChart({ pokemon, colors }) {
               fillOpacity={0.18}
             />
           ))}
-          <Legend />
+          <Legend wrapperStyle={{ fontSize: 12, paddingTop: 4 }} />
           <Tooltip />
         </RadarChart>
       </ResponsiveContainer>

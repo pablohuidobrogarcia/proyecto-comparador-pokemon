@@ -4,24 +4,25 @@ import SearchBox from './components/SearchBox';
 import PokemonCard from './components/PokemonCard';
 import StatsRadarChart from './components/RadarChart';
 import ComparisonTable from './components/ComparisonTable';
+import DefenseCoverageTable from './components/DefenseCoverageTable';
 
-const MAX_COMPARE = 4;
-const COLORS = ['#e63946', '#1d6fb8', '#2a9d8f', '#e9a000'];
+const MAX_COMPARE = 6;
+const COLORS = ['#e63946', '#1d6fb8', '#2a9d8f', '#e9a000', '#8e44ad', '#d81b60'];
 
 export default function App() {
   const [selected, setSelected] = useState([]);
 
-  const sorted = [...selected].sort((a, b) => (a.id ?? 0) - (b.id ?? 0));
+  const sorted = [...selected].sort((a, b) => String(a.name).localeCompare(String(b.name)));
   const exclude = selected.map((p) => p.name);
 
   function addPokemon(p) {
-    if (selected.find((s) => s.name === p.name)) return;
+    if (selected.find((s) => s.id === p.id)) return;
     if (selected.length >= MAX_COMPARE) return;
     setSelected([...selected, p]);
   }
 
-  function removePokemon(slug) {
-    setSelected(selected.filter((s) => s.slug !== slug));
+  function removePokemon(id) {
+    setSelected(selected.filter((s) => s.id !== id));
   }
 
   return (
@@ -58,10 +59,10 @@ export default function App() {
           <section className="cards-section">
             {sorted.map((p, i) => (
               <PokemonCard
-                key={p.slug}
+                key={p.id}
                 pokemon={p}
                 color={COLORS[i % COLORS.length]}
-                onRemove={() => removePokemon(p.slug)}
+                onRemove={() => removePokemon(p.id)}
               />
             ))}
           </section>
@@ -73,8 +74,12 @@ export default function App() {
 
           <section className="table-section">
             <h2>Tabla comparativa</h2>
-            <ComparisonTable pokemon={sorted} colors={COLORS} />
+            <div className="table-wrapper">
+              <ComparisonTable pokemon={sorted} colors={COLORS} />
+            </div>
           </section>
+
+          <DefenseCoverageTable pokemon={sorted} colors={COLORS} />
         </>
       )}
 

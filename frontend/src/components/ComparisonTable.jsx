@@ -17,7 +17,7 @@ export default function ComparisonTable({ pokemon, colors }) {
         <tr>
           <th>Estadística</th>
           {pokemon.map((p, i) => (
-            <th key={p.slug} style={{ color: colors[i % colors.length] }}>
+            <th key={p.id} style={{ color: colors[i % colors.length] }}>
               {p.name}
             </th>
           ))}
@@ -37,7 +37,7 @@ export default function ComparisonTable({ pokemon, colors }) {
                 const isMax = max > 0 && v === max;
                 return (
                   <td
-                    key={p.slug}
+                    key={p.id}
                     className={isMax ? 'cell-max' : ''}
                     style={isMax ? { color: colors[i % colors.length] } : undefined}
                   >
