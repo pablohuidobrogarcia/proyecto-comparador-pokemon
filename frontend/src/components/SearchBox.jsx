@@ -8,7 +8,7 @@ const fuseOptions = {
   ignoreLocation: true,
 };
 
-export default function SearchBox({ label, pokemonList, exclude, onSelect, disabled }) {
+export default function SearchBox({ label, pokemonList, exclude, onSelect, occupied }) {
   const [query, setQuery] = useState('');
   const [open, setOpen] = useState(false);
   const boxRef = useRef(null);
@@ -16,6 +16,7 @@ export default function SearchBox({ label, pokemonList, exclude, onSelect, disab
   const fuse = useMemo(() => new Fuse(pokemonList, fuseOptions), [pokemonList]);
 
   const suggestions = useMemo(() => {
+    if (occupied) return [];
     const q = query.trim();
     if (!q) return [];
     const results = fuse
@@ -24,7 +25,7 @@ export default function SearchBox({ label, pokemonList, exclude, onSelect, disab
       .filter((p) => !exclude.includes(p.name))
       .slice(0, 8);
     return results;
-  }, [query, fuse, exclude]);
+  }, [query, fuse, exclude, occupied]);
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -40,14 +41,26 @@ export default function SearchBox({ label, pokemonList, exclude, onSelect, disab
     setOpen(false);
   }
 
+  if (occupied) {
+    return (
+      <div className="search-box">
+        <label>{label}</label>
+        <div className="search-box-occupied">
+          <PokemonSprite pokemon={occupied} alt="" />
+          <span className="search-box-name">{occupied.name}</span>
+          <span className="search-box-check">✓</span>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="search-box" ref={boxRef}>
       <label>{label}</label>
       <input
         type="text"
-        placeholder={disabled ? 'Máximo alcanzado' : 'Escribe un Pokémon...'}
+        placeholder="Escribe un Pokémon..."
         value={query}
-        disabled={disabled}
         onChange={(e) => {
           setQuery(e.target.value);
           setOpen(true);
