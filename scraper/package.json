@@ -6,10 +6,14 @@
   "scripts": {
     "index": "node index-pokemon.js",
     "scrape": "node scrape.js",
-    "build:data": "node index-pokemon.js && node scrape.js"
+    "build:data": "node index-pokemon.js && node scrape.js",
+    "export-csv": "node export-to-csv.js",
+    "import-csv": "node import-from-csv.js"
   },
   "dependencies": {
     "axios": "^1.7.0",
-    "cheerio": "^1.0.0"
+    "cheerio": "^1.0.0",
+    "csv-parse": "^7.0.2",
+    "csv-stringify": "^6.8.3"
   }
 }

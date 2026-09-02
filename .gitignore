@@ -1,6 +1,7 @@
 node_modules/
 frontend/dist/
 scraper/scrape-errors.json
+scraper/scrape-warnings.json
 scraper/scrape.pid
 scraper/scrape.log
 scraper/scrape.err
