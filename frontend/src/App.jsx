@@ -21,7 +21,7 @@ export default function App() {
 
   function addPokemonToSlot(p, slotIndex) {
     if (slots.some((s) => s && s.id === p.id)) return;
-    if (!slots[slotIndex]) return;
+    if (slots[slotIndex]) return;
     setSlots((prev) => prev.map((s, i) => (i === slotIndex ? p : s)));
   }
 
