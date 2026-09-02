@@ -31,8 +31,8 @@ export default function StatsRadarChart({ pokemon, colors }) {
 
   return (
     <div className="radar-wrap">
-      <ResponsiveContainer width="100%" height={420}>
-        <RadarChart data={data} outerRadius="75%">
+      <ResponsiveContainer width="100%" height={330}>
+        <RadarChart data={data} outerRadius="62%">
           <PolarGrid />
           <PolarAngleAxis dataKey="stat" />
           <PolarRadiusAxis angle={90} domain={[0, 'dataMax']} />

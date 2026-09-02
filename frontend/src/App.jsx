@@ -6,6 +6,7 @@ import StatsRadarChart from './components/RadarChart';
 import ComparisonTable from './components/ComparisonTable';
 import DefenseCoverageTable from './components/DefenseCoverageTable';
 import OffensiveCoverageTable from './components/OffensiveCoverageTable';
+import ConsolidatedOffensiveCoverage from './components/ConsolidatedOffensiveCoverage';
 
 const MAX_COMPARE = 6;
 const COLORS = ['#e63946', '#1d6fb8', '#2a9d8f', '#e9a000', '#8e44ad', '#d81b60'];
@@ -85,19 +86,27 @@ export default function App() {
             )}
           </section>
 
-          <section className="chart-section">
-            <h2>Gráfico de radar</h2>
-            <StatsRadarChart pokemon={sorted} colors={COLORS} />
-          </section>
+          <div className="comparison-layout">
+            <section className="chart-section">
+              <h2>Gráfico de radar</h2>
+              <StatsRadarChart pokemon={sorted} colors={COLORS} />
+            </section>
 
-          <section className="table-section">
-            <h2>Tabla comparativa</h2>
-            <div className="table-wrapper">
-              <ComparisonTable pokemon={sorted} colors={COLORS} />
-            </div>
-          </section>
+            <section className="table-section">
+              <h2>Tabla comparativa</h2>
+              <div className="table-wrapper">
+                <ComparisonTable pokemon={sorted} colors={COLORS} />
+              </div>
+            </section>
+          </div>
 
           <DefenseCoverageTable pokemon={sorted} colors={COLORS} selections={selections} />
+
+          <ConsolidatedOffensiveCoverage
+            pokemon={sorted}
+            moveSelections={moveSelections}
+            colors={COLORS}
+          />
 
           <OffensiveCoverageTable
             pokemon={sorted}
