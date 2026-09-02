@@ -46,12 +46,6 @@ function extractImage($) {
   return img.attr('src') || img.attr('data-src') || '';
 }
 
-function extractNationalNumber($) {
-  const raw = $('#numeronacional').first().text().trim();
-  const n = parseInt(raw, 10);
-  return Number.isNaN(n) ? null : n;
-}
-
 // ---------------------------------------------------------------------------
 // NUEVO MODELO DE DATOS: una entrada por TABLA (sin filtrar ni deduplicar)
 // ---------------------------------------------------------------------------
@@ -148,12 +142,48 @@ function makeEntry({ id, name, slug, types, sprite, stats, base }) {
   return { id, name, slug, types, sprite, stats, total, pokemonBase: base };
 }
 
+function slugify(s) {
+  return (s || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+// Genera un id interno único (para claves de React) a partir de un slug de la
+// forma, añadiendo un sufijo incremental si hay colisión. No depende del número
+// de Pokédex nacional.
+function assignUniqueId(base, seen) {
+  let candidate = base || 'pokemon';
+  if (!seen.has(candidate)) {
+    seen.add(candidate);
+    return candidate;
+  }
+  let n = 1;
+  while (seen.has(`${candidate}-${n}`)) n++;
+  const id = `${candidate}-${n}`;
+  seen.add(id);
+  return id;
+}
+
+// Detecta encabezados que NO son un nombre de forma real, sino descripciones
+// genéricas de la sección (rangos de generación, "características actuales",
+// versiones de juego, etc.). En esos casos el nombre de la entrada debe ser el
+// título de la página, no el encabezado.
+function isGenericHeading(text) {
+  const t = (text || '').toLowerCase();
+  if (t === 'características de combate') return true;
+  return /generaci|a partir de|desde la|hasta la|anteriores|varias gener|estad\u00edsticas en|caracter\u00edsticas|leyendas pok\u00e9mon|en la versi\u00f3n|versi\u00f3n|espad|escud|actuales/.test(
+    t
+  );
+}
+
 // Genera UNA entrada por cada tabla de stats de la página.
-function buildEntries($, slug) {
+function buildEntries($, slug, seenIds) {
   const pageTitle = extractName($);
   const types = extractTypes($);
   const mainSprite = extractImage($);
-  const nationalNumber = extractNationalNumber($);
   const base = baseFormName(pageTitle);
 
   const sectionTables = extractSectionTables($);
@@ -165,8 +195,11 @@ function buildEntries($, slug) {
       const stats = statsFromTable($, $(tableEl));
       if (!Object.keys(stats).length) continue;
       const sprite = extractSubsectionSprite($, tableEl) || mainSprite;
-      const name = heading && heading !== 'Características de combate' ? heading : pageTitle;
-      entries.push(makeEntry({ id: nationalNumber, name, slug, types, sprite, stats, base }));
+      const name =
+        heading && heading !== 'Características de combate' && !isGenericHeading(heading)
+          ? heading
+          : pageTitle;
+      entries.push(makeEntry({ id: assignUniqueId(slugify(name), seenIds), name, slug, types, sprite, stats, base }));
     }
   }
 
@@ -175,7 +208,7 @@ function buildEntries($, slug) {
     $('table.tabpokemon.caracteristicas').each((_, el) => {
       const stats = statsFromTable($, $(el));
       if (!Object.keys(stats).length) return;
-      entries.push(makeEntry({ id: nationalNumber, name: pageTitle, slug, types, sprite: mainSprite, stats, base }));
+      entries.push(makeEntry({ id: assignUniqueId(slugify(pageTitle), seenIds), name: pageTitle, slug, types, sprite: mainSprite, stats, base }));
     });
     if (entries.length) {
       warns.push(`Sin sección "Características de combate"; usado fallback (todas las tablas) para ${pageTitle}.`);
@@ -192,6 +225,7 @@ async function main() {
   const results = [];
   const errors = [];
   const warnings = [];
+  const seenIds = new Set();
 
   for (let i = 0; i < list.length; i++) {
     const p = list[i];
@@ -199,7 +233,7 @@ async function main() {
     try {
       const html = await fetchHtml(url);
       const $ = cheerio.load(html);
-      const { entries, warns } = buildEntries($, p.slug);
+      const { entries, warns } = buildEntries($, p.slug, seenIds);
       if (!entries.length) {
         throw new Error('No se encontraron stats');
       }
