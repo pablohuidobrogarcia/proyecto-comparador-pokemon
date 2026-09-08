@@ -22239,9 +22239,9 @@
     "pokemonBase": "Vaporeon"
   },
   {
-    "id": "variante-enorme",
-    "name": "Variante enorme",
-    "slug": "Gourgeist",
+    "id": "gourgeist_enorme",
+    "name": "Gourgeist_Enorme",
+    "slug": "Gourgeist_Enorme",
     "types": [
       "Fantasma",
       "Planta"
@@ -22259,9 +22259,9 @@
     "pokemonBase": "Gourgeist"
   },
   {
-    "id": "variante-enorme-1",
-    "name": "Variante Enorme",
-    "slug": "Pumpkaboo",
+    "id": "pumpkaboo_enorme",
+    "name": "Pumpkaboo_Enorme",
+    "slug": "Pumpkaboo_Enorme",
     "types": [
       "Fantasma",
       "Planta"
@@ -22279,9 +22279,9 @@
     "pokemonBase": "Pumpkaboo"
   },
   {
-    "id": "variante-grande",
-    "name": "Variante grande",
-    "slug": "Gourgeist",
+    "id": "gourgeist_grande",
+    "name": "Gourgeist_Grande",
+    "slug": "Gourgeist_Grande",
     "types": [
       "Fantasma",
       "Planta"
@@ -22299,9 +22299,9 @@
     "pokemonBase": "Gourgeist"
   },
   {
-    "id": "variante-grande-1",
-    "name": "Variante Grande",
-    "slug": "Pumpkaboo",
+    "id": "pumpkaboo_grande",
+    "name": "Pumpkaboo_Grande",
+    "slug": "Pumpkaboo_Grande",
     "types": [
       "Fantasma",
       "Planta"
@@ -22319,9 +22319,9 @@
     "pokemonBase": "Pumpkaboo"
   },
   {
-    "id": "variante-mediana",
-    "name": "Variante mediana",
-    "slug": "Gourgeist",
+    "id": "gourgeist_mediana",
+    "name": "Gourgeist_Mediana",
+    "slug": "Gourgeist_Mediana",
     "types": [
       "Fantasma",
       "Planta"
@@ -22339,9 +22339,9 @@
     "pokemonBase": "Gourgeist"
   },
   {
-    "id": "variante-mediana-1",
-    "name": "Variante Mediana",
-    "slug": "Pumpkaboo",
+    "id": "pumpkaboo_mediana",
+    "name": "Pumpkaboo_Mediana",
+    "slug": "Pumpkaboo_Mediana",
     "types": [
       "Fantasma",
       "Planta"
@@ -22359,9 +22359,9 @@
     "pokemonBase": "Pumpkaboo"
   },
   {
-    "id": "variante-pequena",
-    "name": "Variante pequeña",
-    "slug": "Gourgeist",
+    "id": "gourgeist_pequena",
+    "name": "Gourgeist_Pequeña",
+    "slug": "Gourgeist_Pequeña",
     "types": [
       "Fantasma",
       "Planta"
@@ -22379,9 +22379,9 @@
     "pokemonBase": "Gourgeist"
   },
   {
-    "id": "variante-pequena-1",
-    "name": "Variante Pequeña",
-    "slug": "Pumpkaboo",
+    "id": "pumpkaboo_pequena",
+    "name": "Pumpkaboo_Pequeña",
+    "slug": "Pumpkaboo_Pequeña",
     "types": [
       "Fantasma",
       "Planta"
